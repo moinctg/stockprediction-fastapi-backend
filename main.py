@@ -72,18 +72,21 @@ app = FastAPI()
 #         "evaluation": evaluation
 #     }
 
+# Define the origins that should be allowed to access your API
 origins = [
-    "http://localhost:3000",
-   # Your Next.js app's URL
-    "https://stockprediction-fastapi-backend-1.onrender.com"  # Your ngrok URL
+    "http://localhost:3000",  # For local development
+    "https://stockinsightai.vercel.app",  # Replace with your actual frontend domain
 ]
+
+# Add CORS middleware to your app
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=origins,  # List of allowed origins
+    allow_credentials=True,  # Allow cookies and headers to be sent with requests
+    allow_methods=["*"],     # Allow all HTTP methods
+    allow_headers=["*"],     # Allow all headers
 )
+
 
 logging.basicConfig(level=logging.DEBUG)
 
