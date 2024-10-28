@@ -75,7 +75,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
    # Your Next.js app's URL
-    "https://681c-34-148-26-126.ngrok-free.app"  # Your ngrok URL
+    "https://stockprediction-fastapi-backend-1.onrender.com"  # Your ngrok URL
 ]
 app.add_middleware(
     CORSMiddleware,
