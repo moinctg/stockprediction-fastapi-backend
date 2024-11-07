@@ -378,7 +378,7 @@ with open("models/models/metrics.pkl", "rb") as f:
 linear_regression_model = pickle.load(open("models/models/linear_regression.pkl", "rb"))
 random_forest_model = pickle.load(open("models/models/random_forest.pkl", "rb"))
 xgboost_model = pickle.load(open("models/models/xgboost.pkl", "rb"))
-lstm_model = load_model("models/models/lstm_model.h5")
+# lstm_model = load_model("models/models/lstm_model.h5")
 arima_model = ARIMAResults.load("models/models/arima.pkl")
 
 # Define the request and response formats
@@ -409,10 +409,10 @@ def predict_xgboost(data):
     predictions = xgboost_model.predict(data)
     return predictions[-5:].tolist()
 
-def predict_lstm(data):
-    data = np.array(data).reshape((1, len(data), 1))
-    predictions = lstm_model.predict(data)
-    return predictions.flatten()[-5:].tolist()
+# def predict_lstm(data):
+#     data = np.array(data).reshape((1, len(data), 1))
+#     predictions = lstm_model.predict(data)
+#     return predictions.flatten()[-5:].tolist()
 
 def predict_arima(data):
     predictions = arima_model.predict(start=len(data), end=len(data) + 4)  # Predicting 5 steps ahead
@@ -436,9 +436,9 @@ async def predict_stock(request: PredictionRequest):
     elif model_type == "xgboost":
         predictions = predict_xgboost(historical_data)
         metrics = metrics_data.get("xgboost")
-    elif model_type == "lstm":
-        predictions = predict_lstm(historical_data)
-        metrics = metrics_data.get("lstm")
+    # elif model_type == "lstm":
+    #     predictions = predict_lstm(historical_data)
+    #     metrics = metrics_data.get("lstm")
     elif model_type == "arima":
         predictions = predict_arima(historical_data)
         metrics = metrics_data.get("arima")
